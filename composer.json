@@ -1,5 +1,5 @@
 {
-    "name": "laravel-admin-ext/filter-timestampbetween",
+    "name": "free-abrams/filter-timestampbetween",
     "description": "laravel-admin filter add timestamp",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
