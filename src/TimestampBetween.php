@@ -3,28 +3,21 @@
 namespace FreeAbarms\TimestampBetween;
 
 use Encore\Admin\Grid\Filter\Between;
-use Illuminate\Support\Arr;
 
 class TimestampBetween extends Between
 {
 public function condition($inputs)
     {
-        if ($this->ignore) {
+        // $inputs即为传进来的参数，格式化成timestamp再去构建条件
+
+        if(!isset($inputs['time'])){
             return;
         }
 
-        if (!Arr::has($inputs, $this->column)) {
+        if(empty($inputs['time'])){
             return;
-        }
-
-        $this->value = Arr::get($inputs, $this->column);
-
-        $value = array_filter($this->value, function ($val) {
-            return $val !== '';
-        });
-
-        if (empty($value)) {
-            return;
+        } else {
+            $value = $inputs['time'];
         }
 
         if (!isset($value['start'])) {
@@ -41,6 +34,7 @@ public function condition($inputs)
 
         $value['end'] = strtotime($value['end']);
         $value['start'] = strtotime($value['start']);
+
         return $this->buildCondition($this->column, $value);
     }
 }
